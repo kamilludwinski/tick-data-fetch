@@ -1,0 +1,23 @@
+{
+	"name": "tick-fetch",
+	"description": "Wrapper for dukascopy node to fetch tick data for financial instruments",
+	"author": "Kamil Ludwinski",
+	"keywords": ["dukascopy", "tick-data"],
+	"license": "MIT",
+	"scripts": {
+		"pretty": "prettier --write .",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"purge": "tsx src/scripts/purge.ts",
+		"start": "tsx src/main.ts"
+	},
+	"type": "module",
+	"dependencies": {
+		"dukascopy-node": "^1.46.4"
+	},
+	"devDependencies": {
+		"@types/node": "^24.0.0",
+		"prettier": "^3.8.1",
+		"tsx": "^4.20.0",
+		"typescript": "^5.9.0"
+	}
+}
