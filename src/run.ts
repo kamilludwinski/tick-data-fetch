@@ -10,7 +10,7 @@ import {
   startOfUtcDay,
   toUtcDayKey,
 } from "./dates";
-import { isTickRow, saveDayJsonl } from "./storage";
+import { rowsFromApiData, saveDayCsv } from "./storage";
 import { logsDir } from "./static";
 
 const runConfigMessage = (
@@ -80,8 +80,8 @@ export async function run(cfg: AppConfig) {
           return;
         }
 
-        const rows = Array.isArray(res.data) ? res.data.filter(isTickRow) : [];
-        await saveDayJsonl({ instrument, day, rows });
+        const rows = rowsFromApiData(res.data);
+        await saveDayCsv({ instrument, day, rows });
         await logger.info(`${dayLabel}  saved  ${rows.length} rows`);
       });
     }

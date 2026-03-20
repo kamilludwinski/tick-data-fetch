@@ -8,6 +8,8 @@ Wrapper for [dukascopy-node](https://www.npmjs.com/package/dukascopy-node) to fe
 npm i
 ```
 
+`postinstall` runs [**patch-package**](https://github.com/ds300/patch-package) to apply `patches/dukascopy-node+1.46.4.patch`: when a Dukascopy HTTP response is not 200, **dukascopy-node** used to throw `Error("Unknown error")` because it never set a message. The patch sets `errorMsg` to `HTTP <status>` so logs and retries can treat **429 / 5xx** correctly.
+
 ## Usage
 
 Flags:
@@ -36,7 +38,9 @@ npm run help
 
 ## Log stats
 
-Pass the path to **one** log file (typically `logs/run-eurusd-….log`).
+With **no path**, all **`*.log`** files under **`./logs`** are read (sorted by filename) and **metrics are summed** (downloaded days, rows, empty workdays). Calendar **actual** values are the **sum** of each file’s configured range (one row per run). A short note is printed so that’s explicit.
+
+With a **path**, only that log is analyzed (same as before).
 
 Example output:
 
@@ -59,10 +63,14 @@ Empty workdays (0 rows): 930
 Pass **`--v`** to list each empty workday; without it you only see the count.
 
 ```bash
+npm run stats
+npm run stats -- --v
 npm run stats -- logs/run-eurusd-1774011778078.log
 npm run stats -- logs/run-eurusd-1774011778078.log --v
 ```
 
 ## Persistence
 
-Data is written to `./data/<instrument>/<year>/<month>/<day>.jsonl`.
+Data is written to `./data/<instrument>/<year>/<month>/<day>/<instrument>.csv` (header + one row per tick).
+
+A file with **only the header** means that day was fetched but **no ticks** were stored—check the log for `saved 0 rows`. Common causes: weekends / thin liquidity, feed gaps, or transient empty responses from Dukascopy. The client enables **retries on empty batches** (`retryOnEmpty` in dukascopy-node); very high `--w` can still increase empty days—retry a narrower range or fewer workers if needed.

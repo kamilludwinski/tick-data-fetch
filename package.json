@@ -8,10 +8,11 @@
   ],
   "license": "MIT",
   "scripts": {
+    "postinstall": "patch-package",
     "pretty": "prettier --write .",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "purge": "tsx src/scripts/purge.ts",
-		"stats": "tsx src/scripts/stats.ts",
+    "stats": "tsx src/scripts/stats.ts",
     "start": "tsx src/main.ts",
     "help": "tsx src/main.ts --help"
   },
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "patch-package": "^8.0.1",
     "prettier": "^3.8.1",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0"
