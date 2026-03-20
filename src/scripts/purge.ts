@@ -1,4 +1,5 @@
-import { purgeData } from '../utils';
+import { rm } from "node:fs/promises";
+import { dataDir, logsDir } from "../static";
 
-await purgeData();
-
+await rm(dataDir, { recursive: true, force: true });
+await rm(logsDir, { recursive: true, force: true });
