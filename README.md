@@ -33,7 +33,6 @@ npm run help
 
 ## Logs
 
-Each instrument gets its own file: `logs/run-<instrument>-<timestamp>.log` (plain, readable lines). The same **run configuration** block is written at the top of every instrument file.
 
 ## Log stats
 
