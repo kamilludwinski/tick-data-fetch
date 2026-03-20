@@ -37,9 +37,25 @@ Each instrument gets its own file: `logs/run-<instrument>-<timestamp>.log` (plai
 
 ## Log stats
 
-Pass the path to **one** log file (typically `logs/run-eurusd-….log`). The instrument is inferred from the filename when using the new format; legacy logs still parse the instrument from each line. **From / to** are read from the run configuration block (or legacy `run started` JSON).
+Pass the path to **one** log file (typically `logs/run-eurusd-….log`).
 
-Prints **Total Days / Weekdays / Weekends** with **actual (from calendar)** vs **downloaded** (from log `saved` lines). Calendar counts use the same UTC half-open range as the fetcher (`[from, to)`). Also prints **total rows**, **average rows per day**, and **empty workdays**. Exits with code `1` if any workday has zero rows.
+Example output:
+
+```bash
+Using log file: c:\Users\kamil\Documents\GitHub\tick-data-fetch\logs\run-eurusd-1774012870969.log
+Instrument (from filename): eurusd
+From: 01/01/2000  (2000-01-01T00:00:00.000Z)
+To:   20/03/2026  (2026-03-20T00:00:00.000Z)
+Total Days:
+  actual: 9575 | downloaded: 1465
+Weekdays:
+  actual: 6839 | downloaded: 1047
+Weekends:
+  actual: 2736 | downloaded: 418
+Total rows downloaded: 778265
+Average rows per day: 531.24
+Empty workdays (0 rows): 930
+```
 
 Pass **`--v`** to list each empty workday; without it you only see the count.
 
