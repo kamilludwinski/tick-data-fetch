@@ -71,6 +71,6 @@ npm run stats -- logs/run-eurusd-1774011778078.log --v
 
 ## Persistence
 
-Data is written to `./data/<instrument>/<year>/<month>/<day>/<instrument>.csv` (header + one row per tick).
+Data is written to `./data/<instrument>/<year>/<month>/<day>/<instrument>.csv`.
 
-A file with **only the header** means that day was fetched but **no ticks** were stored—check the log for `saved 0 rows`. Common causes: weekends / thin liquidity, feed gaps, or transient empty responses from Dukascopy. The client enables **retries on empty batches** (`retryOnEmpty` in dukascopy-node); very high `--w` can still increase empty days—retry a narrower range or fewer workers if needed.
+The client enables **retries on empty batches** (`retryOnEmpty` in dukascopy-node); very high `--w` can still increase empty days—retry a narrower range or fewer workers if needed.
