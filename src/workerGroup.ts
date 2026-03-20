@@ -5,10 +5,11 @@ export class WorkerGroup {
 	private doneWaiters: Array<() => void> = [];
 
 	constructor(maxWorkers: number) {
-		if (!Number.isFinite(maxWorkers) || maxWorkers < 1) {
-			throw new Error('WorkerGroup maxWorkers must be >= 1');
+		const w = Math.floor(maxWorkers);
+		if (!Number.isFinite(w) || w < 0) {
+			throw new Error('WorkerGroup maxWorkers must be a non-negative finite number');
 		}
-		this.maxWorkers = Math.floor(maxWorkers);
+		this.maxWorkers = w < 1 ? 1 : w;
 	}
 
 	private maybeResolveDone() {

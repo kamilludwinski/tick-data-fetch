@@ -1,28 +1,36 @@
 # Tick data fetch
-Wrapper for dukascopy node to fetch tick data for financial instruments.
-It uses a workerGroup to speed up the process, as downloading big ranges can take an enormous amount of time.
 
-# Dependencies
-Install dependencies with:
+Wrapper for [dukascopy-node](https://www.npmjs.com/package/dukascopy-node) to fetch tick data for financial instruments. Work is parallelised with a worker pool so large date ranges finish sooner.
+
+## Dependencies
+
 ```bash
 npm i
 ```
 
-# Usage 
+## Usage
+
+Flags:
+
+| Flag | Required | Default | Description |
+|------|----------|---------|-------------|
+| `--i` | **yes** | — | Comma-separated instruments, e.g. `eurusd,gbpusd` (no spaces inside the list) |
+| `--w` | no | `1` | Max concurrent workers |
+| `--from` | no | `01/01/2000` | Start date `dd/mm/yyyy` |
+| `--to` | no | today | End date `dd/mm/yyyy` |
+
+Run with the shell script:
 
 ```bash
- ./run.sh -- <instruments> <date_from> <date_to>
+./run.sh --i eurusd,gbpusd --from 01/01/2000 --to 18/03/2026
 ```
 
-where:
-- **instruments** is a comma separated instrument list, example: **eurusd,gbpusd**
-Make sure there is no spaces in the input, example: **01/01/2000**
-- **date_from** is DD/MM/YYYY date from, example: **18/03/2026**
-- **date_to** is DD/MM/YYYY to date
+CLI help:
 
-if **date_from** and **date_to** are not provided, defaults are used:
-- **date_from** - 01/01/2000
-- **date_to** - current date (script execution)
+```bash
+npm run help
+```
 
-# Persistence
-Data is saved to ./data/**instrument**/**year**/**month**/**day**.jsonl
+## Persistence
+
+Data is written to `./data/<instrument>/<year>/<month>/<day>.jsonl`.

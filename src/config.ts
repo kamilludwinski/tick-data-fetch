@@ -7,8 +7,7 @@ export type AppConfig = {
 	baseDelayMs: number;
 };
 
-export const config: AppConfig = {
-	instruments: ['eurusd'],
+export const config: Omit<AppConfig, 'instruments'> = {
 	from: '01/01/2004',
 	to: '18/03/2026',
 	maxWorkers: 8,

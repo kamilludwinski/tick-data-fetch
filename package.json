@@ -8,7 +8,8 @@
 		"pretty": "prettier --write .",
 		"typecheck": "tsc -p tsconfig.json --noEmit",
 		"purge": "tsx src/scripts/purge.ts",
-		"start": "tsx src/main.ts"
+		"start": "tsx src/main.ts",
+		"help": "tsx src/main.ts --help"
 	},
 	"type": "module",
 	"dependencies": {

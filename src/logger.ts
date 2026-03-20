@@ -37,9 +37,11 @@ export class Logger {
 	info(message: string, extra?: unknown) {
 		return this.write('info', message, extra);
 	}
+	
 	warn(message: string, extra?: unknown) {
 		return this.write('warn', message, extra);
 	}
+
 	error(message: string, extra?: unknown) {
 		return this.write('error', message, extra);
 	}
